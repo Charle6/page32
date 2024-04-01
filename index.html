@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <style>
+        body {
+            background-color: #c5e1fc;
+        }
+
+        /* Styling for video container */
+        .video-container {
+            max-width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        /* Styling for video box */
+        .video-box {
+            background-color: #f0f0f0; /* Custom background color */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+            width: 438px; /* Fixed width */
+            height: 300px; /* Fixed height */
+            margin-bottom: 40px; /* Gap between videos */
+        }
+
+        /* Styling for video */
+        video {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Styling for search bar */
+        .search-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: transparent;
+            border-radius: 6px;
+        }
+
+        .search-bar {
+            width: 70%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            margin-right: 20px;
+        }
+
+        .search-input {
+            padding: 8px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Search bar -->
+    <div class="search-container">
+        <img src="images/logo.png" alt="Logo" class="logo">
+        <input type="text" class="search-input" placeholder="Search for a song..." oninput="filterVideos(this.value)">
+    </div>
+
+    <!-- Your existing video container -->
+    <div class="video-container">
+        <!-- Your video boxes -->
+    </div>
+
+    <!-- Your existing JavaScript code -->
+    <script>
+        // Define an array to store all video sources
+        const allVideos = [
+            "Yaha Koi Nahi Apna _ Radhe Sada Mujh Par _Cover_ Vipul Music Company, Gaurav Krishna Goswami ,Jainen.mp4",
+            "Samay Samjhayega Full Song _ Tum Prem Ho Sad _ Radha Krishn _ LOFI _ MOhit lalwani _ Surya Raj Kamal.mp4",
+            // Add other video sources as needed
+        ];
+
+        // Function to filter videos based on search input
+        function filterVideos(searchTerm) {
+            const videoContainer = document.querySelector('.video-container');
+            videoContainer.innerHTML = ''; // Clear existing videos
+
+            const filteredVideos = allVideos.filter(video => {
+                return video.toLowerCase().includes(searchTerm.toLowerCase());
+            });
+
+            filteredVideos.forEach(video => {
+                const videoBox = document.createElement('div');
+                videoBox.classList.add('video-box');
+
+                const videoElement = document.createElement('video');
+                videoElement.controls = true;
+                videoElement.setAttribute('playsinline', ''); // Play inline for mobile devices
+                const sourceElement = document.createElement('source');
+                sourceElement.src = video;
+                sourceElement.type = 'video/mp4';
+                videoElement.appendChild(sourceElement);
+
+                videoBox.appendChild(videoElement);
+                videoContainer.appendChild(videoBox);
+            });
+        }
+
+        // Initialize with all videos
+        filterVideos('');
+    </script>
+</body>
+</html>
